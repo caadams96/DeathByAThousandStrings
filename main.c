@@ -10,6 +10,48 @@ void* StringReverse(char* dest,char *source);
 int brutesearch(char *pattern, const char *string);
 int CaseSensitiveCharacterSearch(const char* strSource, char chrLetterToFind);
 int CaseInsensitiveCharacterSearch(const char* strSource, char chrLetterToFind);
+void *StringConcatenate(char *dest, char *src);
+
+char* StringUpperCase(char* dest, char* strSource);
+
+int upper(int c);
+
+
+int main() {
+    char* string = "The big brown dog named Bernard, went on a walk";
+    char* copy = malloc(100);
+    char* reverse = malloc(100);
+
+    printf("%s\n",string);
+    //PROB 1const
+    printf("length: %d\n",StringLength(""));
+    //prob 2
+    StringCopy(copy,string);
+    //prob3
+    printf("%d\n", CaseSensitiveCharacterSearch(string, 'B'));
+    //prop4
+    printf("%d\n", CaseInsensitiveCharacterSearch(string, 'B'));
+    //prob5
+    char* cpy = "Hello";
+    cpy = StringConcatenate(cpy, " World!");
+    printf("%s\n", cpy);
+    //
+    char* upper = malloc(StringLength(cpy));
+    printf("%s\n", StringUpperCase(upper,cpy));
+
+
+
+    ////////
+//    char* str =  StringReverse(reverse,string);
+//    printf("COPY: %s\n", reverse);
+
+
+    free(copy);
+//    free(reverse);
+    return 0;
+}
+
+
 void *StringConcatenate(char *dest, char *src){
     int dest_length = StringLength(dest);
     int source_length = StringLength(src);
@@ -30,41 +72,6 @@ void *StringConcatenate(char *dest, char *src){
     dest = cat_buffer;
     return dest;
 
-}
-#define TRUE 1
-#define FALSE 0
-int upper(int c);
-
-
-int main() {
-    char* string = "The big brown dog named Bernard, went on a walk";
-    char* copy = malloc(100);
-    char* reverse = malloc(100);
-
-    printf("%s\n",string);
-    //PROB 1const
-    printf("length: %d\n",StringLength(""));
-    //prob 2
-    StringCopy(copy,string);
-    //prob3
-    printf("%d\n", CaseSensitiveCharacterSearch(string, 'B'));
-    //prop4
-    printf("%d\n", CaseInsensitiveCharacterSearch(string, 'B'));
-    //prob5
-    char* cpy = "Hello";
-    printf("%s\n", StringConcatenate(cpy, " World!"));
-    //
-    printf("upper: %c\n", upper('t'));
-
-
-    ////////
-//    char* str =  StringReverse(reverse,string);
-//    printf("COPY: %s\n", reverse);
-
-
-    free(copy);
-//    free(reverse);
-    return 0;
 }
 void* StringReverse(char *dest,  char *source) {
     size_t string_length = StringLength(source);
@@ -101,13 +108,15 @@ int CaseInsensitiveCharacterSearch(const char* strSource, char chrLetterToFind){
     return brutesearch(pattern_char, dest);
 }
 
-char* StringUpperCase(char* dest, char* source){
+char* StringUpperCase(char* dest, char* strSource){
 
     char *d = dest;
     const char *s = strSource;
+    int len = StringLength(strSource);
+
     while (len--)
-        *d++ = (char)lower(*s++);
-    return 0;
+        *d++ = (char)upper(*s++);
+    return dest;
 }
 
 int upper(int c){
